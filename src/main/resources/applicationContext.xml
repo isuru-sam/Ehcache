@@ -1,0 +1,54 @@
+<beans xmlns="http://www.springframework.org/schema/beans" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cache="http://www.springframework.org/schema/cache"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:p="http://www.springframework.org/schema/p" 
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:task="http://www.springframework.org/schema/task"
+    
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xsd
+        http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+   
+      
+      <context:annotation-config />
+     <cache:annotation-driven cache-manager="ehCacheManager" />
+     <!--   <bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer">
+<property name="customQualifierTypes">
+    <set>
+        <value>org.springframework.beans.factory.annotation.Qualifier</value>
+    </set>
+</property>
+      </bean>
+      -->
+   <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"
+			p:cache-manager-ref="ehcache1" />
+<!-- Ehcache library setup -->
+<bean id="ehcache1" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"
+			p:config-location="classpath:ehcache.xml" p:shared="true"/>
+			
+	 <!--		<bean id="lk" class="com.googlecode.ehcache.annotations.key.ListCacheKeyGenerator"/>
+     
+  
+<bean id="bookService" class="x.y.service.DefaultBookService"/>
+
+
+<cache:advice id="cacheAdvice" cache-manager="ehCacheManager">
+    <cache:caching cache="books">
+        <cache:cacheable method="findBook" key="#isbn"/>
+        <cache:cache-evict method="loadBooks" all-entries="true"/>
+    </cache:caching>
+</cache:advice>
+
+
+<aop:config>
+    <aop:advisor advice-ref="cacheAdvice" pointcut="execution(* x.y.BookService.*(..))"/>
+</aop:config>
+    -->
+    
+    </beans>
